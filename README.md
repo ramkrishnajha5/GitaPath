@@ -2,25 +2,32 @@
 
 A modern, beautiful devotional reading web application for exploring the timeless wisdom of the Bhagavad Gita. Built with React, TypeScript, and Tailwind CSS.
 
+## 🌐 Live Demo
+
+**[Visit GitaPath →](https://thegitapath.netlify.app)**
+
 ![GitaPath Banner](https://img.shields.io/badge/Spiritual-Wisdom-orange?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-18.3-blue?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?style=for-the-badge&logo=tailwind-css)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/your-site-id/deploy-status)](https://thegitapath.netlify.app)
 
 ## ✨ Features
 
-- 📖 **18 Chapters** - Complete access to all chapters of the Bhagavad Gita
-- 🔍 **Verse Search** - Search verses by keywords (peace, duty, karma, dharma, etc.)
+- 📖 **18 Chapters & 700 Verses** - Complete access to all chapters of the Bhagavad Gita
 - 🕉️ **Sanskrit Text** - Original Sanskrit verses with Devanagari font
-- 🌐 **Translations** - Multiple English translations from renowned scholars
+- 🌐 **Multiple Translations** - English and Hindi translations from renowned scholars
 - 📝 **Commentaries** - Detailed commentaries to deepen understanding
 - ✍️ **Transliterations** - Roman transliteration for pronunciation
-- 💾 **Bookmarks** - Save favorite verses locally
-- 📤 **Share Verses** - Share wisdom with friends
-- 🎨 **Beautiful UI** - Spiritual theme with warm golden palette
-- 📱 **Responsive** - Perfect on desktop, tablet, and mobile
+- 💾 **Save Verses** - Bookmark your favorite verses locally
+- 📤 **Share as Image** - Generate and share verses as beautiful images
+- 🌓 **Dark/Light Mode** - Toggle between themes for comfortable reading
+- 📊 **Animated Statistics** - View-triggered animated counters for journey stats
+- 🎯 **Daily Verse** - Verse of the day cached for 24 hours
+- 🎨 **Beautiful UI** - Spiritual theme with warm saffron and gold palette
+- 📱 **Fully Responsive** - Perfect experience on desktop, tablet, and mobile
 - ⚡ **Fast & Smooth** - Built with modern web technologies
-- 🎭 **Animations** - Smooth page transitions with Framer Motion
+- 🎭 **Smooth Animations** - Framer Motion transitions and effects
 
 ## 🛠️ Tech Stack
 
@@ -77,24 +84,40 @@ npm run preview
 ## 📁 Project Structure
 
 ```
-src/
-├── api/
-│   └── gitaApi.ts          # API configuration and endpoints
-├── components/
-│   ├── Navbar.tsx          # Navigation bar
-│   ├── Footer.tsx          # Footer with attribution
-│   ├── ChapterCard.tsx     # Chapter display card
-│   └── VerseCard.tsx       # Verse display card
-├── pages/
-│   ├── Home.tsx            # Homepage with daily verse
-│   ├── Chapters.tsx        # All chapters list
-│   ├── ChapterDetail.tsx   # Individual chapter view
-│   ├── VerseDetail.tsx     # Individual verse view
-│   ├── Search.tsx          # Search functionality
-│   └── About.tsx           # About page
-├── App.tsx                 # Main app component with routing
-├── main.tsx               # Entry point
-└── index.css              # Global styles and Tailwind
+GitaPath/
+├── src/
+│   ├── api/
+│   │   └── gitaApi.ts           # API configuration and endpoints
+│   ├── components/
+│   │   ├── Navbar.tsx           # Navigation with mobile menu
+│   │   ├── Footer.tsx           # Footer with attribution
+│   │   ├── ChapterCard.tsx      # Chapter display card
+│   │   ├── VerseCard.tsx        # Verse card with save/share
+│   │   └── JourneyStats.tsx     # Animated statistics component
+│   ├── context/
+│   │   └── ThemeContext.tsx     # Dark/Light mode context
+│   ├── pages/
+│   │   ├── Home.tsx             # Homepage with daily verse
+│   │   ├── Chapters.tsx         # All chapters list
+│   │   ├── ChapterDetail.tsx    # Individual chapter view
+│   │   ├── VerseDetail.tsx      # Individual verse view
+│   │   ├── SavedVerses.tsx      # Saved/bookmarked verses
+│   │   └── About.tsx            # About page
+│   ├── App.tsx                  # Main app with routing
+│   ├── main.tsx                 # Entry point
+│   └── index.css                # Global styles and Tailwind
+├── public/
+│   └── logo.png                 # GitaPath logo
+├── .gitignore                   # Git ignore rules
+├── package.json                 # Dependencies and scripts
+├── tailwind.config.js           # Tailwind configuration
+├── vite.config.ts               # Vite configuration
+└── README.md                    # This file
+
+# Excluded from Git (but generated locally):
+# - node_modules/              # npm dependencies (auto-installed)
+# - dist/                       # Production build (auto-generated)
+# - .env                        # Environment variables (if any)
 ```
 
 ## 🔌 API
