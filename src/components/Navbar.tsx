@@ -21,7 +21,7 @@ const Navbar = () => {
     <>
       <nav className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md sticky top-0 z-50 border-b-2 border-saffron-100 dark:border-amber-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center h-full py-2 group">
               <img 
