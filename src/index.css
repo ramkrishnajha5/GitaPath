@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Philosopher:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-inter text-gray-900 antialiased;
+    background: linear-gradient(135deg, #fff7ed 0%, #ffffff 50%, #fef3c7 100%);
+    min-height: 100vh;
+  }
+  
+  .dark body {
+    @apply text-gray-100;
+    background: linear-gradient(135deg, #1a0f0a 0%, #2d1810 50%, #3d2415 100%);
+  }
+}
+
+@layer components {
+  .devotional-card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-saffron-100 dark:border-amber-900;
+  }
+  
+  .devotional-button {
+    @apply bg-gradient-to-r from-saffron-500 to-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-saffron-600 hover:to-orange-700 transition-all duration-300 shadow-md hover:shadow-lg;
+  }
+  
+  .verse-card {
+    @apply bg-gradient-to-br from-white to-saffron-50 dark:from-gray-800 dark:to-gray-700 rounded-lg shadow-md p-6 border-l-4 border-saffron-500 dark:border-amber-600 hover:shadow-xl transition-all duration-300;
+  }
+  
+  .sanskrit-text {
+    @apply font-noto text-2xl leading-relaxed text-gray-800 dark:text-amber-100;
+  }
+  
+  .chapter-title {
+    @apply font-playfair text-3xl md:text-4xl font-bold text-saffron-700 dark:text-amber-400;
+  }
+}
