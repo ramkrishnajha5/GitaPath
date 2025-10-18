@@ -18,16 +18,12 @@ A modern, beautiful devotional reading web application for exploring the timeles
 - 🕉️ **Sanskrit Text** - Original Sanskrit verses with Devanagari font
 - 🌐 **Multiple Translations** - English and Hindi translations from renowned scholars
 - 📝 **Commentaries** - Detailed commentaries to deepen understanding
-- ✍️ **Transliterations** - Roman transliteration for pronunciation
+- ✍️ **Transliterations** - English, Hindi, Roman transliteration for pronunciation
 - 💾 **Save Verses** - Bookmark your favorite verses locally
 - 📤 **Share as Image** - Generate and share verses as beautiful images
 - 🌓 **Dark/Light Mode** - Toggle between themes for comfortable reading
-- 📊 **Animated Statistics** - View-triggered animated counters for journey stats
 - 🎯 **Daily Verse** - Verse of the day cached for 24 hours
-- 🎨 **Beautiful UI** - Spiritual theme with warm saffron and gold palette
 - 📱 **Fully Responsive** - Perfect experience on desktop, tablet, and mobile
-- ⚡ **Fast & Smooth** - Built with modern web technologies
-- 🎭 **Smooth Animations** - Framer Motion transitions and effects
 
 ## 🛠️ Tech Stack
 
@@ -35,7 +31,6 @@ A modern, beautiful devotional reading web application for exploring the timeles
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Routing**: React Router DOM
-- **API Calls**: Axios
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
 - **Fonts**: Playfair Display, Philosopher, Inter, Noto Sans Devanagari
@@ -171,7 +166,7 @@ This application uses the [Bhagavad Gita API](https://rapidapi.com/bhagavad-gita
 
 ## 📄 License
 
-This project is created for educational and spiritual purposes.
+[MIT](https://rem.mit-license.org/)
 
 ## 🙏 Attribution
 
