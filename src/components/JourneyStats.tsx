@@ -31,11 +31,11 @@ const StatItem = ({ label, targetValue, duration, showInfinity = false, isInView
     const animate = () => {
       const now = Date.now();
       const progress = Math.min((now - startTime) / duration, 1);
-      
+
       // Ease-out cubic function for smooth animation
       const easeOut = 1 - Math.pow(1 - progress, 3);
       const currentValue = Math.floor(easeOut * targetValue);
-      
+
       setCount(currentValue);
 
       if (progress < 1) {
@@ -69,11 +69,11 @@ const StatItem = ({ label, targetValue, duration, showInfinity = false, isInView
             {count.toLocaleString()}
           </span>
         </motion.div>
-        
+
         {showInfinity && (
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ 
+            animate={{
               opacity: isComplete ? 1 : 0,
               scale: isComplete ? 1 : 0.5
             }}
@@ -86,7 +86,7 @@ const StatItem = ({ label, targetValue, duration, showInfinity = false, isInView
           </motion.div>
         )}
       </div>
-      
+
       <p className="text-gray-700 dark:text-gray-300 mt-1 md:mt-2 text-sm sm:text-base md:text-lg lg:text-xl font-medium tracking-wide">
         {label}
       </p>
@@ -96,7 +96,7 @@ const StatItem = ({ label, targetValue, duration, showInfinity = false, isInView
 
 const JourneyStats = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { 
+  const isInView = useInView(ref, {
     once: false, // Allow repeated animations
     margin: "-100px" // Trigger when section is 100px into viewport
   });
@@ -114,10 +114,10 @@ const JourneyStats = () => {
         <div className="bg-gradient-to-br from-saffron-50 via-orange-50 to-amber-50 dark:from-gray-800 dark:via-gray-700 dark:to-amber-900/30 rounded-2xl shadow-xl p-8 md:p-12 border-2 border-saffron-200/50 dark:border-amber-700/50 relative overflow-hidden">
           {/* Subtle glow effect */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-saffron-200/20 dark:via-amber-500/10 to-transparent animate-pulse pointer-events-none" />
-          
+
           <div className="relative z-10">
             {/* Title */}
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false }}
@@ -153,7 +153,7 @@ const JourneyStats = () => {
                 viewport={{ once: false }}
                 transition={{ duration: 0.5, delay: 0.5 }}
               >
-                <StatItem label="Wisdom" targetValue={1001} duration={5000} showInfinity isInView={isInView} />
+                <StatItem label="Wisdom" targetValue={1000001} duration={5000} showInfinity isInView={isInView} />
               </motion.div>
             </div>
           </div>

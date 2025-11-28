@@ -24,7 +24,7 @@ const VerseCard = ({ verse }: VerseCardProps) => {
   const handleBookmark = () => {
     const bookmarks = JSON.parse(localStorage.getItem('gitaBookmarks') || '[]');
     const verseId = `${verse.chapter_number}.${verse.verse_number}`;
-    
+
     if (bookmarked) {
       const filtered = bookmarks.filter((id: string) => id !== verseId);
       localStorage.setItem('gitaBookmarks', JSON.stringify(filtered));
@@ -38,18 +38,18 @@ const VerseCard = ({ verse }: VerseCardProps) => {
 
   const handleShare = async () => {
     if (!verseRef.current) return;
-    
+
     setIsSharing(true);
     try {
       const canvas = await html2canvas(verseRef.current, {
         backgroundColor: document.documentElement.classList.contains('dark') ? '#1f2937' : '#fffbeb',
         scale: 2,
       });
-      
+
       canvas.toBlob(async (blob) => {
         if (blob) {
           const file = new File([blob], `gita-verse-${verse.chapter_number}-${verse.verse_number}.png`, { type: 'image/png' });
-          
+
           if (navigator.share && navigator.canShare({ files: [file] })) {
             try {
               await navigator.share({
@@ -77,8 +77,16 @@ const VerseCard = ({ verse }: VerseCardProps) => {
     }
   };
 
-  const englishTranslation = verse.translations?.find(t => t.language === 'english') || verse.translations?.[0];
-  const hindiTranslation = verse.translations?.find(t => t.language === 'hindi');
+  // Get first Hindi and first English translation for main display
+  const firstHindiTranslation = verse.translations?.find(t => t.language === 'hindi');
+  const firstEnglishTranslation = verse.translations?.find(t => t.language === 'english');
+
+  // Get remaining translations to show in "Other Translations"
+  const firstHindiIdx = verse.translations?.findIndex(tr => tr.language === 'hindi') ?? -1;
+  const firstEnglishIdx = verse.translations?.findIndex(tr => tr.language === 'english') ?? -1;
+  const otherTranslations = verse.translations?.filter((_, idx) => {
+    return idx !== firstHindiIdx && idx !== firstEnglishIdx;
+  });
 
   return (
     <motion.div
@@ -90,7 +98,7 @@ const VerseCard = ({ verse }: VerseCardProps) => {
       <div ref={verseRef} className="verse-share-content">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <Link 
+          <Link
             to={`/chapter/${verse.chapter_number}/verse/${verse.verse_number}`}
             className="font-semibold text-saffron-700 dark:text-amber-400 hover:text-saffron-800 dark:hover:text-amber-300 flex items-center space-x-1"
           >
@@ -100,33 +108,38 @@ const VerseCard = ({ verse }: VerseCardProps) => {
         </div>
 
         {/* Sanskrit Text */}
-        <div className="mb-4 p-4 bg-gradient-to-r from-saffron-50 to-orange-50 dark:from-gray-700 dark:to-gray-600 rounded-lg">
-          <p className="sanskrit-text text-center">{verse.text}</p>
+        <div className="mb-3 p-3 bg-gradient-to-r from-saffron-50 to-orange-50 dark:from-gray-700 dark:to-gray-600 rounded-lg">
+          <p className="sanskrit-text text-center text-sm sm:text-base leading-snug">{verse.text}</p>
         </div>
 
-        {/* English Translation */}
-        {englishTranslation && (
-          <div className="mb-4">
-            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">English Translation</h4>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed italic">
-              "{englishTranslation.description}"
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-              — {englishTranslation.author_name}
-            </p>
-          </div>
-        )}
+        {/* Translations - Hindi First (Bold), then English */}
+        {verse.translations && verse.translations.length > 0 && (
+          <div className="mb-3 space-y-2">
+            <h4 className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Translation</h4>
 
-        {/* Hindi Translation */}
-        {hindiTranslation && (
-          <div className="mb-4">
-            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">हिंदी अनुवाद</h4>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed font-bold">
-              "{hindiTranslation.description}"
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-              — {hindiTranslation.author_name}
-            </p>
+            {/* Hindi Translation (Bold) */}
+            {firstHindiTranslation && (
+              <div className="bg-gradient-to-r from-saffron-50 to-orange-50 dark:from-gray-700 dark:to-gray-600 p-3 rounded-lg">
+                <p className="text-gray-800 dark:text-gray-200 leading-snug font-bold text-sm sm:text-base">
+                  {firstHindiTranslation.description}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400 mt-1.5">
+                  — {firstHindiTranslation.author_name}
+                </p>
+              </div>
+            )}
+
+            {/* English Translation */}
+            {firstEnglishTranslation && (
+              <div className="bg-gradient-to-r from-saffron-50 to-orange-50 dark:from-gray-700 dark:to-gray-600 p-3 rounded-lg">
+                <p className="text-gray-700 dark:text-gray-300 leading-snug italic text-sm sm:text-base">
+                  "{firstEnglishTranslation.description}"
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5">
+                  — {firstEnglishTranslation.author_name}
+                </p>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -136,11 +149,10 @@ const VerseCard = ({ verse }: VerseCardProps) => {
         <div className="flex items-center space-x-2">
           <button
             onClick={handleBookmark}
-            className={`flex items-center space-x-1 px-4 py-2 rounded-lg transition-all font-medium ${
-              bookmarked
-                ? 'bg-saffron-600 dark:bg-amber-600 text-white shadow-lg'
-                : 'bg-saffron-100 dark:bg-gray-700 text-saffron-700 dark:text-amber-400 hover:bg-saffron-200 dark:hover:bg-gray-600'
-            }`}
+            className={`flex items-center space-x-1 px-4 py-2 rounded-lg transition-all font-medium ${bookmarked
+              ? 'bg-saffron-600 dark:bg-amber-600 text-white shadow-lg'
+              : 'bg-saffron-100 dark:bg-gray-700 text-saffron-700 dark:text-amber-400 hover:bg-saffron-200 dark:hover:bg-gray-600'
+              }`}
             title={bookmarked ? 'Remove bookmark' : 'Save verse'}
           >
             <Bookmark size={18} className={bookmarked ? 'fill-current' : ''} />
@@ -195,14 +207,19 @@ const VerseCard = ({ verse }: VerseCardProps) => {
               )}
 
               {/* Additional Translations */}
-              {verse.translations && verse.translations.length > 2 && (
+              {otherTranslations && otherTranslations.length > 0 && (
                 <div>
                   <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">Other Translations</h4>
                   <div className="space-y-3">
-                    {verse.translations.filter(t => t.language !== 'english' && t.language !== 'hindi').map((translation, idx) => (
+                    {otherTranslations.map((translation, idx) => (
                       <div key={idx} className="bg-white dark:bg-gray-700 p-3 rounded-lg">
-                        <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">{translation.description}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">— {translation.author_name}</p>
+                        <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed"
+                          style={translation.language === 'hindi' ? { fontWeight: 'bold' } : {}}>
+                          {translation.description}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                          — {translation.author_name} ({translation.language})
+                        </p>
                       </div>
                     ))}
                   </div>

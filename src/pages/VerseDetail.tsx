@@ -78,9 +78,8 @@ const VerseDetail = () => {
   const handleCopy = () => {
     if (!verse) return;
 
-    const copyText = `${verse.text}\n\nTransliteration: ${verse.transliteration}\n\n${
-      verse.translations?.[0]?.description || ''
-    }\n\n- Bhagavad Gita ${chapterNumber}.${verseNumber}`;
+    const copyText = `${verse.text}\n\nTransliteration: ${verse.transliteration}\n\n${verse.translations?.[0]?.description || ''
+      }\n\n- Bhagavad Gita ${chapterNumber}.${verseNumber}`;
 
     navigator.clipboard.writeText(copyText);
     setCopied(true);
@@ -146,11 +145,10 @@ const VerseDetail = () => {
             <div className="flex items-center space-x-2">
               <button
                 onClick={handleBookmark}
-                className={`p-3 rounded-lg transition-all ${
-                  bookmarked
+                className={`p-3 rounded-lg transition-all ${bookmarked
                     ? 'bg-saffron-600 text-white shadow-lg'
                     : 'bg-white border-2 border-saffron-300 text-saffron-600 hover:bg-saffron-50'
-                }`}
+                  }`}
                 title={bookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
               >
                 <BookmarkPlus size={20} />
@@ -202,10 +200,27 @@ const VerseDetail = () => {
             <div className="mb-6">
               <h3 className="font-semibold text-gray-800 mb-4 text-lg">Translations</h3>
               <div className="space-y-4">
-                {verse.translations.map((translation, idx) => (
-                  <div key={idx} className="bg-white p-5 rounded-lg shadow-sm border-l-4 border-saffron-500">
-                    <p className="text-gray-700 leading-relaxed mb-2">"{translation.description}"</p>
+                {/* Hindi Translation First (Bold) */}
+                {verse.translations.filter(t => t.language === 'hindi').map((translation, idx) => (
+                  <div key={`hindi-${idx}`} className="bg-gradient-to-r from-saffron-100 to-orange-100 p-5 rounded-lg shadow-sm border-l-4 border-saffron-600">
+                    <p className="text-gray-800 leading-relaxed mb-2 font-bold text-lg">{translation.description}</p>
+                    <p className="text-sm text-gray-600">— {translation.author_name} (हिंदी)</p>
+                  </div>
+                ))}
+
+                {/* English Translations */}
+                {verse.translations.filter(t => t.language === 'english').map((translation, idx) => (
+                  <div key={`english-${idx}`} className="bg-white p-5 rounded-lg shadow-sm border-l-4 border-saffron-500">
+                    <p className="text-gray-700 leading-relaxed mb-2 italic">"{translation.description}"</p>
                     <p className="text-sm text-gray-500">— {translation.author_name}</p>
+                  </div>
+                ))}
+
+                {/* Other Language Translations */}
+                {verse.translations.filter(t => t.language !== 'hindi' && t.language !== 'english').map((translation, idx) => (
+                  <div key={`other-${idx}`} className="bg-gray-50 p-5 rounded-lg shadow-sm border-l-4 border-gray-400">
+                    <p className="text-gray-700 leading-relaxed mb-2">{translation.description}</p>
+                    <p className="text-sm text-gray-500">— {translation.author_name} ({translation.language})</p>
                   </div>
                 ))}
               </div>
@@ -245,11 +260,10 @@ const VerseDetail = () => {
               }
             }}
             disabled={verseNumber === 1}
-            className={`inline-flex items-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all ${
-              verseNumber === 1
+            className={`inline-flex items-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all ${verseNumber === 1
                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                 : 'bg-white border-2 border-saffron-500 text-saffron-700 hover:bg-saffron-50 shadow-md hover:shadow-lg'
-            }`}
+              }`}
           >
             <ArrowLeft size={20} />
             <span>Previous Verse</span>

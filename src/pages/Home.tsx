@@ -26,34 +26,56 @@ const Home = () => {
             const now = Date.now();
             const twentyFourHours = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-            // Check if cached verse is still valid (less than 24 hours old)
-            if (now - timestamp < twentyFourHours) {
+            // Check if cached verse is still valid (less than 24 hours old) AND has required data
+            if (now - timestamp < twentyFourHours && cachedVerse?.text && cachedVerse?.translations) {
               verse = cachedVerse;
               shouldFetchNewVerse = false;
+              console.log('Using cached verse:', cachedVerse.chapter_number + '.' + cachedVerse.verse_number);
+            } else {
+              console.log('Cached verse is invalid or expired, fetching new one');
             }
           } catch (error) {
             console.error('Error parsing cached verse:', error);
+            // Clear the invalid cache
+            localStorage.removeItem('gitapath-daily-verse');
             // If parsing fails, we'll fetch a new verse
           }
         }
 
         // Fetch new verse if needed
         if (shouldFetchNewVerse) {
-          verse = await getRandomVerse();
-          // Save to localStorage with current timestamp
-          localStorage.setItem('gitapath-daily-verse', JSON.stringify({
-            verse,
-            timestamp: Date.now()
-          }));
+          try {
+            console.log('Fetching new random verse...');
+            verse = await getRandomVerse();
+            console.log('Random verse fetched successfully:', verse.chapter_number + '.' + verse.verse_number);
+            // Save to localStorage with current timestamp
+            localStorage.setItem('gitapath-daily-verse', JSON.stringify({
+              verse,
+              timestamp: Date.now()
+            }));
+          } catch (verseError) {
+            console.error('Error fetching random verse:', verseError);
+            // Don't throw, we'll handle it gracefully
+          }
         }
 
         // Fetch chapters
         const chaptersData = await getChapters();
-        
+
         setDailyVerse(verse);
         setChapters(chaptersData);
       } catch (error) {
         console.error('Error fetching data:', error);
+        // Even if chapters fail, try to show *something* for the verse
+        if (!dailyVerse) {
+          console.log('Attempting fallback verse...');
+          try {
+            const fallbackVerse = await getRandomVerse();
+            setDailyVerse(fallbackVerse);
+          } catch (fallbackError) {
+            console.error('Fallback verse also failed:', fallbackError);
+          }
+        }
       } finally {
         setLoading(false);
       }
@@ -65,7 +87,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
@@ -108,9 +130,9 @@ const Home = () => {
             transition={{ delay: 0.5 }}
             className="max-w-3xl mx-auto text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8"
           >
-            Embark on a spiritual journey through the timeless wisdom of the Bhagavad Gita. 
-            Explore 18 chapters and 700 sacred verses that illuminate the path to self-realization, 
-            duty, and devotion. Read, reflect, and discover the eternal truths that guide millions 
+            Embark on a spiritual journey through the timeless wisdom of the Bhagavad Gita.
+            Explore 18 chapters and 700 sacred verses that illuminate the path to self-realization,
+            duty, and devotion. Read, reflect, and discover the eternal truths that guide millions
             towards enlightenment.
           </motion.p>
 
@@ -182,7 +204,7 @@ const Home = () => {
         <h2 className="font-playfair text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800 dark:text-amber-400">
           All Chapters
         </h2>
-        
+
         {loading ? (
           <div className="text-center py-16">
             <div className="inline-block w-16 h-16 border-4 border-saffron-200 border-t-saffron-600 rounded-full animate-spin"></div>
