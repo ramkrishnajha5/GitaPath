@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Bookmark, Info, Menu, X, Sun, Moon } from 'lucide-react';
+import { Home, BookOpen, Bookmark, Info, Menu, X, Sun, Moon, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
@@ -24,15 +24,15 @@ const Navbar = () => {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center h-full py-2 group">
-              <img 
-                src="/logo.png" 
-                alt="GitaPath Logo" 
-                className="h-full w-auto object-contain group-hover:scale-105 transition-transform" 
+              <img
+                src="/logo.png"
+                alt="GitaPath Logo"
+                className="h-full w-auto object-contain group-hover:scale-105 transition-transform"
               />
             </Link>
 
-            {/* Desktop Navigation Links */}
-            <div className="hidden md:flex space-x-8">
+            {/* Desktop Navigation Links - Only visible on large screens */}
+            <div className="hidden lg:flex space-x-8">
               <Link
                 to="/"
                 className={`flex items-center space-x-1 px-3 py-2 transition-all ${isActive('/')}`}
@@ -66,8 +66,8 @@ const Navbar = () => {
               </Link>
             </div>
 
-            {/* Right Side: Dark Mode Toggle + Mobile Menu Button */}
-            <div className="flex items-center space-x-3">
+            {/* Right Side: Dark Mode Toggle + Mobile/Tablet Menu Button */}
+            <div className="flex items-center space-x-2 sm:space-x-3">
               {/* Dark Mode Toggle */}
               <button
                 onClick={toggleTheme}
@@ -77,10 +77,10 @@ const Navbar = () => {
                 {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
               </button>
 
-              {/* Mobile Hamburger Menu */}
+              {/* Mobile/Tablet Hamburger Menu - Visible on mobile and tablet */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-saffron-100 dark:hover:bg-gray-700 transition-colors"
+                className="lg:hidden p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-saffron-100 dark:hover:bg-gray-700 transition-colors"
                 aria-label="Toggle menu"
               >
                 {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -90,14 +90,14 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile/Tablet Menu Overlay - Visible on mobile and tablet */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 md:hidden"
+            className="fixed inset-0 z-40 lg:hidden"
           >
             {/* Backdrop */}
             <div
@@ -161,6 +161,17 @@ const Navbar = () => {
                     <Info size={20} />
                     <span className="font-medium">About Us</span>
                   </Link>
+
+                  {/* Download Android App - Mobile/Tablet Menu */}
+                  <a
+                    href="https://github.com/ramkrishnajha5/GitaPath/releases/download/v1.0.0/GitaPath.apk"
+                    download
+                    onClick={closeMobileMenu}
+                    className="flex items-center justify-center space-x-2 px-3 py-2 rounded-lg bg-gradient-to-r from-saffron-500 to-orange-600 text-white hover:from-saffron-600 hover:to-orange-700 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 mt-4 shadow-md hover:shadow-lg whitespace-nowrap text-sm"
+                  >
+                    <Download size={16} />
+                    <span className="font-medium">Download Android App</span>
+                  </a>
                 </nav>
               </div>
             </motion.div>
