@@ -142,38 +142,75 @@ const ChapterDetail = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex justify-between items-center mt-12 pt-8 border-t border-saffron-200"
+          className="mt-12 pt-8 border-t border-saffron-200"
         >
-          <button
-            onClick={handlePrevious}
-            disabled={chapterNumber === 1}
-            className={`inline-flex items-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all ${
-              chapterNumber === 1
-                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                : 'bg-white dark:bg-gray-800 border-2 border-saffron-500 dark:border-amber-600 text-saffron-700 dark:text-amber-400 hover:bg-saffron-50 dark:hover:bg-gray-700 shadow-md hover:shadow-lg'
-            }`}
-          >
-            <ArrowLeft size={20} />
-            <span>Previous Chapter</span>
-          </button>
+          {/* Mobile Layout */}
+          <div className="flex flex-col sm:hidden gap-4">
+            {/* Chapter indicator at top center */}
+            <div className="text-center py-2">
+              <p className="text-sm text-gray-500 dark:text-gray-400">Chapter</p>
+              <p className="text-2xl font-bold text-saffron-700 dark:text-amber-400">{chapterNumber} / 18</p>
+            </div>
 
-          <div className="text-center">
-            <p className="text-sm text-gray-500 dark:text-gray-400">Chapter</p>
-            <p className="text-2xl font-bold text-saffron-700 dark:text-amber-400">{chapterNumber} / 18</p>
+            {/* Buttons row */}
+            <div className="flex justify-between gap-3">
+              <button
+                onClick={handlePrevious}
+                disabled={chapterNumber === 1}
+                className={`flex-1 inline-flex items-center justify-center space-x-2 px-4 py-3 rounded-lg font-semibold transition-all ${chapterNumber === 1
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'bg-white dark:bg-gray-800 border-2 border-saffron-500 dark:border-amber-600 text-saffron-700 dark:text-amber-400 hover:bg-saffron-50 dark:hover:bg-gray-700 shadow-md hover:shadow-lg'
+                  }`}
+              >
+                <ArrowLeft size={18} />
+                <span className="text-sm">Previous<br />Chapter</span>
+              </button>
+
+              <button
+                onClick={handleNext}
+                disabled={chapterNumber === 18}
+                className={`flex-1 inline-flex items-center justify-center space-x-2 px-4 py-3 rounded-lg font-semibold transition-all ${chapterNumber === 18
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'bg-white dark:bg-gray-800 border-2 border-saffron-500 dark:border-amber-600 text-saffron-700 dark:text-amber-400 hover:bg-saffron-50 dark:hover:bg-gray-700 shadow-md hover:shadow-lg'
+                  }`}
+              >
+                <span className="text-sm">Next<br />Chapter</span>
+                <ArrowRight size={18} />
+              </button>
+            </div>
           </div>
 
-          <button
-            onClick={handleNext}
-            disabled={chapterNumber === 18}
-            className={`inline-flex items-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all ${
-              chapterNumber === 18
-                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                : 'bg-white dark:bg-gray-800 border-2 border-saffron-500 dark:border-amber-600 text-saffron-700 dark:text-amber-400 hover:bg-saffron-50 dark:hover:bg-gray-700 shadow-md hover:shadow-lg'
-            }`}
-          >
-            <span>Next Chapter</span>
-            <ArrowRight size={20} />
-          </button>
+          {/* Desktop Layout */}
+          <div className="hidden sm:flex justify-between items-center">
+            <button
+              onClick={handlePrevious}
+              disabled={chapterNumber === 1}
+              className={`inline-flex items-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all ${chapterNumber === 1
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'bg-white dark:bg-gray-800 border-2 border-saffron-500 dark:border-amber-600 text-saffron-700 dark:text-amber-400 hover:bg-saffron-50 dark:hover:bg-gray-700 shadow-md hover:shadow-lg'
+                }`}
+            >
+              <ArrowLeft size={20} />
+              <span>Previous Chapter</span>
+            </button>
+
+            <div className="text-center">
+              <p className="text-sm text-gray-500 dark:text-gray-400">Chapter</p>
+              <p className="text-2xl font-bold text-saffron-700 dark:text-amber-400">{chapterNumber} / 18</p>
+            </div>
+
+            <button
+              onClick={handleNext}
+              disabled={chapterNumber === 18}
+              className={`inline-flex items-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all ${chapterNumber === 18
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'bg-white dark:bg-gray-800 border-2 border-saffron-500 dark:border-amber-600 text-saffron-700 dark:text-amber-400 hover:bg-saffron-50 dark:hover:bg-gray-700 shadow-md hover:shadow-lg'
+                }`}
+            >
+              <span>Next Chapter</span>
+              <ArrowRight size={20} />
+            </button>
+          </div>
         </motion.div>
       </div>
     </div>
