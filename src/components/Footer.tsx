@@ -1,4 +1,4 @@
-import { Heart, ExternalLink } from 'lucide-react';
+import { Heart, ExternalLink, Instagram, Github } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -41,28 +41,39 @@ const Footer = () => {
             <p className="text-saffron-100 text-sm mb-2">
               Powered by Bhagavad Gita API
             </p>
-            <a 
-              href="https://rapidapi.com/bhagavad-gita-bhagavad-gita-default/api/bhagavad-gita3" 
-              target="_blank" 
+            <a
+              href="https://vedicscriptures.github.io"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-saffron-200 hover:text-white transition-colors text-sm inline-flex items-center"
             >
-              API Documentation <ExternalLink size={14} className="ml-1" />
+              Vedic Scriptures API <ExternalLink size={14} className="ml-1" />
             </a>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-saffron-700 mt-8 pt-6 text-center">
-          <p className="text-saffron-100 text-sm flex items-center justify-center">
-            Made with <Heart size={16} className="mx-1 text-red-400 fill-red-400" /> by{' '}
-            <a 
-              href="https://www.instagram.com/ramkrishnajha5" 
-              target="_blank" 
+          <p className="text-saffron-100 text-sm flex items-center justify-center flex-wrap gap-1">
+            Made with <Heart size={16} className="mx-1 text-red-400 fill-red-400" /> by
+            <span className="font-semibold text-white ml-1">RAM KRISHNA</span>
+            <a
+              href="https://www.instagram.com/ramkrishnajha5"
+              target="_blank"
               rel="noopener noreferrer"
-              className="ml-1 font-semibold text-white hover:text-saffron-200 transition-colors inline-flex items-center"
+              className="ml-2 p-1.5 rounded-full bg-saffron-700/50 hover:bg-saffron-600 transition-colors"
+              title="Instagram"
             >
-              RAM KRISHNA <ExternalLink size={12} className="ml-1" />
+              <Instagram size={16} />
+            </a>
+            <a
+              href="https://github.com/ramkrishnajha5"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-1 p-1.5 rounded-full bg-saffron-700/50 hover:bg-saffron-600 transition-colors"
+              title="GitHub"
+            >
+              <Github size={16} />
             </a>
           </p>
           <p className="text-saffron-200 text-xs mt-2">
@@ -75,3 +86,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
