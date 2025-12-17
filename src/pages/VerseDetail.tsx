@@ -90,8 +90,8 @@ const VerseDetail = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block w-16 h-16 border-4 border-saffron-200 border-t-saffron-600 rounded-full animate-spin"></div>
-          <p className="mt-4 text-gray-600 text-lg">Loading verse...</p>
+          <div className="inline-block w-16 h-16 border-4 border-saffron-200 dark:border-amber-700 border-t-saffron-600 dark:border-t-amber-400 rounded-full animate-spin"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-300 text-lg">Loading verse...</p>
         </div>
       </div>
     );
@@ -124,7 +124,7 @@ const VerseDetail = () => {
         >
           <Link
             to={`/chapter/${chapterNumber}`}
-            className="inline-flex items-center space-x-2 text-saffron-600 hover:text-saffron-700 font-medium transition-colors"
+            className="inline-flex items-center space-x-2 text-saffron-600 dark:text-amber-400 hover:text-saffron-700 dark:hover:text-amber-300 font-medium transition-colors"
           >
             <ArrowLeft size={20} />
             <span>Back to Chapter {chapterNumber}</span>
@@ -135,19 +135,19 @@ const VerseDetail = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-white to-saffron-50 rounded-2xl shadow-2xl p-8 md:p-12 border-2 border-saffron-200"
+          className="bg-gradient-to-br from-white to-saffron-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl shadow-2xl p-8 md:p-12 border-2 border-saffron-200 dark:border-amber-900"
         >
           {/* Header with Actions */}
-          <div className="flex justify-between items-center mb-6 pb-4 border-b border-saffron-200">
-            <h1 className="font-playfair text-3xl font-bold text-saffron-700">
+          <div className="flex justify-between items-center mb-6 pb-4 border-b border-saffron-200 dark:border-amber-800">
+            <h1 className="font-playfair text-3xl font-bold text-saffron-700 dark:text-amber-400">
               Verse {chapterNumber}.{verseNumber}
             </h1>
             <div className="flex items-center space-x-2">
               <button
                 onClick={handleBookmark}
                 className={`p-3 rounded-lg transition-all ${bookmarked
-                    ? 'bg-saffron-600 text-white shadow-lg'
-                    : 'bg-white border-2 border-saffron-300 text-saffron-600 hover:bg-saffron-50'
+                  ? 'bg-saffron-600 dark:bg-amber-600 text-white shadow-lg'
+                  : 'bg-white dark:bg-gray-700 border-2 border-saffron-300 dark:border-amber-600 text-saffron-600 dark:text-amber-400 hover:bg-saffron-50 dark:hover:bg-gray-600'
                   }`}
                 title={bookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
               >
@@ -155,14 +155,14 @@ const VerseDetail = () => {
               </button>
               <button
                 onClick={handleCopy}
-                className="p-3 rounded-lg bg-white border-2 border-saffron-300 text-saffron-600 hover:bg-saffron-50 transition-all"
+                className="p-3 rounded-lg bg-white dark:bg-gray-700 border-2 border-saffron-300 dark:border-amber-600 text-saffron-600 dark:text-amber-400 hover:bg-saffron-50 dark:hover:bg-gray-600 transition-all"
                 title="Copy Verse"
               >
                 {copied ? <span className="text-sm font-medium">Copied!</span> : <Copy size={20} />}
               </button>
               <button
                 onClick={handleShare}
-                className="p-3 rounded-lg bg-white border-2 border-saffron-300 text-saffron-600 hover:bg-saffron-50 transition-all"
+                className="p-3 rounded-lg bg-white dark:bg-gray-700 border-2 border-saffron-300 dark:border-amber-600 text-saffron-600 dark:text-amber-400 hover:bg-saffron-50 dark:hover:bg-gray-600 transition-all"
                 title="Share Verse"
               >
                 <Share2 size={20} />
@@ -171,15 +171,15 @@ const VerseDetail = () => {
           </div>
 
           {/* Sanskrit Text */}
-          <div className="mb-8 p-6 bg-gradient-to-r from-saffron-100 to-orange-100 rounded-xl">
+          <div className="mb-8 p-6 bg-gradient-to-r from-saffron-100 to-orange-100 dark:from-amber-900/40 dark:to-orange-900/40 rounded-xl">
             <p className="sanskrit-text text-center leading-loose">{verse.text}</p>
           </div>
 
           {/* Transliteration */}
           {verse.transliteration && (
             <div className="mb-6">
-              <h3 className="font-semibold text-gray-800 mb-3 text-lg">Transliteration</h3>
-              <p className="text-gray-600 italic text-lg leading-relaxed bg-white p-4 rounded-lg">
+              <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-3 text-lg">Transliteration</h3>
+              <p className="text-gray-600 dark:text-gray-300 italic text-lg leading-relaxed bg-white dark:bg-gray-700 p-4 rounded-lg">
                 {verse.transliteration}
               </p>
             </div>
@@ -188,8 +188,8 @@ const VerseDetail = () => {
           {/* Word Meanings */}
           {verse.word_meanings && (
             <div className="mb-6">
-              <h3 className="font-semibold text-gray-800 mb-3 text-lg">Word Meanings</h3>
-              <p className="text-gray-700 leading-relaxed bg-white p-4 rounded-lg">
+              <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-3 text-lg">Word Meanings</h3>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed bg-white dark:bg-gray-700 p-4 rounded-lg">
                 {verse.word_meanings}
               </p>
             </div>
@@ -198,29 +198,29 @@ const VerseDetail = () => {
           {/* Translations */}
           {verse.translations && verse.translations.length > 0 && (
             <div className="mb-6">
-              <h3 className="font-semibold text-gray-800 mb-4 text-lg">Translations</h3>
+              <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-4 text-lg">Translations</h3>
               <div className="space-y-4">
                 {/* Hindi Translation First (Bold) */}
                 {verse.translations.filter(t => t.language === 'hindi').map((translation, idx) => (
-                  <div key={`hindi-${idx}`} className="bg-gradient-to-r from-saffron-100 to-orange-100 p-5 rounded-lg shadow-sm border-l-4 border-saffron-600">
-                    <p className="text-gray-800 leading-relaxed mb-2 font-bold text-lg">{translation.description}</p>
-                    <p className="text-sm text-gray-600">— {translation.author_name} (हिंदी)</p>
+                  <div key={`hindi-${idx}`} className="bg-gradient-to-r from-saffron-100 to-orange-100 dark:from-amber-900/40 dark:to-orange-900/40 p-5 rounded-lg shadow-sm border-l-4 border-saffron-600 dark:border-amber-500">
+                    <p className="text-gray-800 dark:text-gray-100 leading-relaxed mb-2 font-bold text-lg">{translation.description}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">— {translation.author_name} (हिंदी)</p>
                   </div>
                 ))}
 
                 {/* English Translations */}
                 {verse.translations.filter(t => t.language === 'english').map((translation, idx) => (
-                  <div key={`english-${idx}`} className="bg-white p-5 rounded-lg shadow-sm border-l-4 border-saffron-500">
-                    <p className="text-gray-700 leading-relaxed mb-2 italic">"{translation.description}"</p>
-                    <p className="text-sm text-gray-500">— {translation.author_name}</p>
+                  <div key={`english-${idx}`} className="bg-white dark:bg-gray-700 p-5 rounded-lg shadow-sm border-l-4 border-saffron-500 dark:border-amber-600">
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed mb-2 italic">"{translation.description}"</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">— {translation.author_name}</p>
                   </div>
                 ))}
 
                 {/* Other Language Translations */}
                 {verse.translations.filter(t => t.language !== 'hindi' && t.language !== 'english').map((translation, idx) => (
-                  <div key={`other-${idx}`} className="bg-gray-50 p-5 rounded-lg shadow-sm border-l-4 border-gray-400">
-                    <p className="text-gray-700 leading-relaxed mb-2">{translation.description}</p>
-                    <p className="text-sm text-gray-500">— {translation.author_name} ({translation.language})</p>
+                  <div key={`other-${idx}`} className="bg-gray-50 dark:bg-gray-600 p-5 rounded-lg shadow-sm border-l-4 border-gray-400 dark:border-gray-500">
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed mb-2">{translation.description}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">— {translation.author_name} ({translation.language})</p>
                   </div>
                 ))}
               </div>
@@ -230,15 +230,15 @@ const VerseDetail = () => {
           {/* Commentaries */}
           {verse.commentaries && verse.commentaries.length > 0 && (
             <div>
-              <h3 className="font-semibold text-gray-800 mb-4 text-lg">Commentaries</h3>
+              <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-4 text-lg">Commentaries</h3>
               <div className="space-y-4">
                 {verse.commentaries.map((commentary, idx) => (
                   <div
                     key={idx}
-                    className="bg-gradient-to-br from-saffron-50 to-white p-5 rounded-lg border-l-4 border-orange-500 shadow-sm"
+                    className="bg-gradient-to-br from-saffron-50 to-white dark:from-gray-700 dark:to-gray-600 p-5 rounded-lg border-l-4 border-orange-500 dark:border-amber-500 shadow-sm"
                   >
-                    <p className="text-gray-700 leading-relaxed mb-2">{commentary.description}</p>
-                    <p className="text-sm text-gray-500">— {commentary.author_name}</p>
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed mb-2">{commentary.description}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">— {commentary.author_name}</p>
                   </div>
                 ))}
               </div>
@@ -261,8 +261,8 @@ const VerseDetail = () => {
             }}
             disabled={verseNumber === 1}
             className={`inline-flex items-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all ${verseNumber === 1
-                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                : 'bg-white border-2 border-saffron-500 text-saffron-700 hover:bg-saffron-50 shadow-md hover:shadow-lg'
+              ? 'bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+              : 'bg-white dark:bg-gray-800 border-2 border-saffron-500 dark:border-amber-600 text-saffron-700 dark:text-amber-400 hover:bg-saffron-50 dark:hover:bg-gray-700 shadow-md hover:shadow-lg'
               }`}
           >
             <ArrowLeft size={20} />
@@ -271,7 +271,7 @@ const VerseDetail = () => {
 
           <button
             onClick={() => navigate(`/chapter/${chapterNumber}/verse/${verseNumber + 1}`)}
-            className="inline-flex items-center space-x-2 px-6 py-3 rounded-lg font-semibold bg-white border-2 border-saffron-500 text-saffron-700 hover:bg-saffron-50 shadow-md hover:shadow-lg transition-all"
+            className="inline-flex items-center space-x-2 px-6 py-3 rounded-lg font-semibold bg-white dark:bg-gray-800 border-2 border-saffron-500 dark:border-amber-600 text-saffron-700 dark:text-amber-400 hover:bg-saffron-50 dark:hover:bg-gray-700 shadow-md hover:shadow-lg transition-all"
           >
             <span>Next Verse</span>
             <ArrowRight size={20} />
